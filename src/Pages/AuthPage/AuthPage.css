@@ -27,14 +27,16 @@
   padding: 40px 0px 27px 0px !important;
 }
 
-.emailForm, .passForm {
+.emailForm, .passForm, .usernameForm, .confirmPassForm {
   outline: none !important;
   background-color: transparent !important;
   border: 4px solid #30303D !important;
-  border-radius: 18px !important;
-  padding: 10px 0px !important;
+  border-radius: 20px !important;
+  padding: 15px 0px !important;
   text-indent: 30px;
   font-size: 18px;
+  color: white !important;
+
 }
 
 .signInButton {

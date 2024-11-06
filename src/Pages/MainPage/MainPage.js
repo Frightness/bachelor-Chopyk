@@ -31,16 +31,16 @@ export default function MainPage() {
       <header>
         <img src={Logo} draggable="false" />
         <Box>
-          <Typography style={{ fontFamily: "Sigmar One", fontSize: "34px" }}>CINEMLY</Typography>
-          <Typography style={{ fontFamily: "Sigmar One", fontSize: "17px" }}>ENJOY TOGETHER</Typography>
+          <Typography style={{fontSize: "34px", fontWeight: "bold" }}>CINEMLY</Typography>
+          <Typography style={{fontSize: "17px" }}>ENJOY TOGETHER</Typography>
         </Box>
       </header>
 
       <main>
-        <Typography sx={{ fontFamily: "Sigmar One", fontSize: "40px", maxWidth: "628px", zIndex: "10" }}>
+        <Typography sx={{fontSize: "40px", maxWidth: "628px", zIndex: "10", fontWeight: "bold" }}>
           DISCOVER A UNIVERSE OF <span style={{ color: "#AD49E1" }}>VIDEO WITH FRIENDS</span>
         </Typography>
-        <Typography sx={{ maxWidth: "560px", fontFamily: "Prosto One", fontSize: "16px", marginTop: "25px", zIndex: "10" }}>
+        <Typography sx={{ maxWidth: "560px", fontSize: "16px", marginTop: "25px", zIndex: "10" }}>
           We add variety and new emotions to virtual communication. 
           Join us and make sure that distance is no longer an obstacle to watching films with your friends
           or sharing happy family video memories!

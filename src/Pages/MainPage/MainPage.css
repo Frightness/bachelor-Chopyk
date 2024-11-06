@@ -60,10 +60,11 @@ main {
 .startButton {
   background-color: #613DC1 !important;
   border-radius: 12px !important;
-  font-family: "Sigmar One" !important;
   z-index: 100;
   position: relative !important;
   bottom: 20px !important;
+  font-family: "Poppins" !important;
+  font-weight: bold !important;
 }
 
 .startButton:hover {
