@@ -1,0 +1,62 @@
+.authWrapper {
+  background-color: #17181E;
+  min-height: 100vh;
+  color: white;
+  text-align: center;
+}
+
+.sphereWrapper {
+  display: flex;
+  justify-content: space-evenly;
+  z-index: 1 !important;
+}
+
+.welcomeBackLoginText {
+  font-family: "Poppins" !important;
+  font-weight: bolder !important;
+  font-size: 48px !important;
+  margin-top: 40px !important;
+}
+
+.inputsWrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 411px !important;
+  gap: 23px;
+  padding: 40px 0px 27px 0px !important;
+}
+
+.emailForm, .passForm {
+  outline: none !important;
+  background-color: transparent !important;
+  border: 4px solid #30303D !important;
+  border-radius: 18px !important;
+  padding: 10px 0px !important;
+  text-indent: 30px;
+  font-size: 18px;
+}
+
+.signInButton {
+  background-color: #613DC1 !important;
+  max-width: 300px !important;
+  width: 100% !important;
+  padding: 10px !important;
+  border-radius: 13px !important;
+  color: white !important;
+  font-weight: bold !important;
+  text-transform: initial !important;
+  font-size: 17px !important;
+  margin-bottom: 40px !important;
+}
+
+::placeholder {
+  color: white !important;
+}
+
+.createAccountSuggest {
+  display: flex !important;
+  justify-content: center;
+  gap: 10px;
+}
+

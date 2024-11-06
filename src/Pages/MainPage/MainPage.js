@@ -4,6 +4,7 @@ import Logo from "../../Assets/Logo.svg";
 import SpaceShip from "../../Assets/MainPageSpaceShip.svg";
 
 import { Box, Typography, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function createStars() {
   const stars = [];
@@ -47,7 +48,9 @@ export default function MainPage() {
 
         <img src={SpaceShip} className="spaceShip" draggable="false" />
 
-        <Button variant="contained" className="startButton">Get Started</Button>
+        <Link to="/auth" style={{ textDecoration: 'none' }}>
+          <Button variant="contained" className="startButton">Get Started</Button>
+        </Link>
       </main>
 
       <div className="flyingStars">{createStars()}</div>
