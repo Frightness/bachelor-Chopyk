@@ -1,7 +1,7 @@
 import './AuthPage.css';
 import { Box, Button, Typography } from "@mui/material";
 import React, { useState } from 'react';
-import { auth, db } from '../../firebase'; // Імпортуйте Firebase конфігурацію
+import { auth, db } from '../../firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 
@@ -30,13 +30,17 @@ export default function AuthPage() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Збереження користувача в Firestore
       await setDoc(doc(db, 'users', user.uid), {
         username: username,
         email: email
       });
 
-      setMessage('Registration successful!');
+      setTimeout(function () {
+        setMessage('Registration successful!');
+        window.location.href = "/profile"
+      }, 2000)
+
+      
     } catch (error) {
       setMessage(`Error: ${error.message}`);
     }
@@ -55,6 +59,11 @@ export default function AuthPage() {
       }
 
       setMessage('Login successful!');
+
+      setTimeout(function () {
+        
+        window.location.href = "/profile"
+      }, 2000)
     } catch (error) {
       setMessage(`Error: ${error.message}`);
     }

@@ -1,0 +1,32 @@
+.profilePageWrapper {
+  background-color: #17181E;
+  min-height: 100vh;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px 0px;
+  background-color: #7A1CAC;
+}
+
+.userAvatar {
+  border-radius: 100%;
+}
+
+.profileDetailsContainer {
+  background-color: #30323F;
+  border-radius: 20px;
+  padding: 37px 50px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  text-align: left;
+  max-width: 800px;
+  width: 100%;
+}
