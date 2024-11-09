@@ -51,7 +51,7 @@ export default function AuthPage() {
         email: email,
         created_at: localDateString,
         location: ipAddress,
-        Biography: "",
+        biography: "It's default biography for all users, in future you will have opportunity to change it :)",
         favoriteList: "",
         friendsList: "",
         avatarUrl: "",
