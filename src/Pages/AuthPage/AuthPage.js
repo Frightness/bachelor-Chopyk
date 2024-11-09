@@ -1,4 +1,5 @@
 import "./AuthPage.css";
+import "./Responsive.css";
 import { Box, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { auth, db } from "../../firebase";
