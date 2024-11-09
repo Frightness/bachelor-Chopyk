@@ -11,7 +11,6 @@ nav {
   display: flex;
   justify-content: space-evenly;
   padding: 20px 0px;
-  background-color: #7A1CAC;
 }
 
 .userAvatar {
@@ -27,6 +26,45 @@ nav {
   flex-direction: column;
   gap: 40px;
   text-align: left;
-  max-width: 800px;
+  max-width: 600px;
   width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.optionButtons {
+  margin-top: 50px !important;
+  display: flex;
+  gap: 50px;
+}
+
+.optionButtons img {
+  background-color: #613DC1 !important;
+  border-radius: 50% !important;
+  height: 34px !important;
+  width: 34px !important;
+  padding: 15px;
+}
+
+.profileNavItem {
+  color: #9E7AFF !important;
+  text-decoration: none;
+}
+
+.modalWindow {
+  max-width: 900px !important;
+  color: white;
+  background-color: #35293C !important;
+}
+
+.navModal {
+  display: flex;
+  gap: 100px;
+  justify-content: flex-end;
 }
