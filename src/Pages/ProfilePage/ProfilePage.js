@@ -122,7 +122,7 @@ export default function ProfilePage() {
             <Typography>
               <strong>BIO</strong>
             </Typography>
-            <Typography>{userData.biography}</Typography>
+            <Typography>{userData.Biography}</Typography>
           </Box>
         </Box>
 
