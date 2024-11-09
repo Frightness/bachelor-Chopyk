@@ -21,7 +21,7 @@
 @media screen and (max-width: 599px) {
   .profileDetailsContainer {
     gap: 30px;
-    max-width: 410px;
+    max-width: 380px;
   }
 
   .optionButtons {
