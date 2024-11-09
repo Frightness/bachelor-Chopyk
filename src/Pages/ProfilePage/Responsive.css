@@ -1,0 +1,38 @@
+/* Планшети в портретному режимі (від 600px до 767px) */
+@media screen and (min-width: 600px) and (max-width: 767px) {
+  .profileDetailsContainer {
+    max-width: 500px;
+  }
+
+  .optionButtons {
+    margin-top: 40px !important;
+    display: flex;
+    gap: 40px;
+  }
+
+  .optionButtons img {
+    height: 32px !important;
+    width: 32px !important;
+    padding: 13px;
+  }
+} 
+
+/* Телефони (до 599px) */
+@media screen and (max-width: 599px) {
+  .profileDetailsContainer {
+    gap: 30px;
+    max-width: 410px;
+  }
+
+  .optionButtons {
+    margin-top: 30px !important;
+    display: flex;
+    gap: 30px;
+  }
+
+  .optionButtons img {
+    height: 30px !important;
+    width: 30px !important;
+    padding: 10px;
+  }
+}

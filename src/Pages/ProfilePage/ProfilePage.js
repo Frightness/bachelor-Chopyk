@@ -1,4 +1,5 @@
 import "./ProfilePage.css";
+import "./Responsive.css";
 import { Typography, Box, Modal, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../firebase";
