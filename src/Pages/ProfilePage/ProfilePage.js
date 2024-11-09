@@ -124,13 +124,6 @@ export default function ProfilePage() {
             </Typography>
             <Typography>{userData.biography}</Typography>
           </Box>
-
-          <Box>
-            <Typography>
-              <strong>Your IP Address:</strong>
-            </Typography>
-            <Typography>{userData.location}</Typography>
-          </Box>
         </Box>
 
         <Box className="optionButtons">
