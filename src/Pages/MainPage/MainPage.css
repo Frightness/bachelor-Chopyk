@@ -40,6 +40,7 @@
 header {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   padding: 30px 30px;
 }
@@ -49,6 +50,7 @@ main {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin-top: 70px !important;
 }
 
 .spaceShip {
@@ -65,6 +67,7 @@ main {
   bottom: 20px !important;
   font-family: "Poppins" !important;
   font-weight: bold !important;
+  padding: 10px 40px !important;
 }
 
 .startButton:hover {
@@ -98,4 +101,18 @@ main {
 
 .star:nth-child(odd) {
   animation-duration: 15s;
+}
+
+.mainText {
+  font-size: 40px !important;
+  max-width: 628px !important;
+  z-index: 10 !important;
+  font-weight: bold !important;
+}
+
+.descriptionOfSite {
+  max-width: 560px !important;
+  font-size: 16px !important;
+  margin-top: 25px !important;
+  z-index: 10 !important;
 }

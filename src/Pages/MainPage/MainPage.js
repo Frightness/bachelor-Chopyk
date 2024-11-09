@@ -1,5 +1,5 @@
 import './MainPage.css';
-
+import "./Responsive.css";
 import Logo from "../../Assets/Logo.svg";
 import SpaceShip from "../../Assets/MainPageSpaceShip.svg";
 
@@ -29,18 +29,14 @@ export default function MainPage() {
   return (
     <Box className="wrapper">
       <header>
-        <img src={Logo} draggable="false" />
-        <Box>
-          <Typography style={{fontSize: "34px", fontWeight: "bold" }}>CINEMLY</Typography>
-          <Typography style={{fontSize: "17px" }}>ENJOY TOGETHER</Typography>
-        </Box>
+        <img src={Logo} draggable="false" height={"50"} />
       </header>
 
       <main>
-        <Typography sx={{fontSize: "40px", maxWidth: "628px", zIndex: "10", fontWeight: "bold" }}>
+        <Typography className='mainText'>
           DISCOVER A UNIVERSE OF <span style={{ color: "#AD49E1" }}>VIDEO WITH FRIENDS</span>
         </Typography>
-        <Typography sx={{ maxWidth: "560px", fontSize: "16px", marginTop: "25px", zIndex: "10" }}>
+        <Typography className='descriptionOfSite'>
           We add variety and new emotions to virtual communication. 
           Join us and make sure that distance is no longer an obstacle to watching films with your friends
           or sharing happy family video memories!

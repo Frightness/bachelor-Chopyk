@@ -1,0 +1,51 @@
+/* Десктопи (від 1200px і більше) */
+@media screen and (min-width: 1200px) {
+  /* Ваші стилі для великих екранів */
+}
+
+/* Планшети в горизонтальному режимі (від 768px до 1199px) */
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  /* Ваші стилі для планшетів в горизонтальному режимі */
+}
+
+/* Планшети в портретному режимі (від 600px до 767px) */
+@media screen and (min-width: 600px) and (max-width: 767px) {
+  .mainText {
+    font-size: 30px !important;
+    max-width: 480px !important;
+  }
+
+  .descriptionOfSite {
+    max-width: 480px !important;
+    font-size: 15px !important;
+  }
+
+  main {
+    margin-top: 40px !important;
+  }
+
+  .spaceShip {
+    margin-top: 45px;
+  }
+}
+
+/* Телефони (до 599px) */
+@media screen and (max-width: 599px) {
+  .mainText {
+    font-size: 28px !important;
+    max-width: 370px !important;
+  }
+
+  .descriptionOfSite {
+    max-width: 400px !important;
+    font-size: 12px !important;
+  }
+
+  main {
+    margin-top: 20px !important;
+  }
+
+  .spaceShip {
+    margin-top: 30px;
+  }
+}
