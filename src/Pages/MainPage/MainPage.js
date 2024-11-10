@@ -1,10 +1,10 @@
-import './MainPage.css';
+import "./MainPage.css";
 import "./Responsive.css";
 import Logo from "../../Assets/Logo.svg";
 import SpaceShip from "../../Assets/MainPageSpaceShip.svg";
 
-import { Box, Typography, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Box, Typography, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function createStars() {
   const stars = [];
@@ -33,19 +33,22 @@ export default function MainPage() {
       </header>
 
       <main>
-        <Typography className='mainText'>
-          DISCOVER A UNIVERSE OF <span style={{ color: "#AD49E1" }}>VIDEO WITH FRIENDS</span>
+        <Typography className="mainText">
+          DISCOVER A UNIVERSE OF{" "}
+          <span style={{ color: "#AD49E1" }}>VIDEO WITH FRIENDS</span>
         </Typography>
-        <Typography className='descriptionOfSite'>
-          We add variety and new emotions to virtual communication. 
-          Join us and make sure that distance is no longer an obstacle to watching films with your friends
-          or sharing happy family video memories!
+        <Typography className="descriptionOfSite">
+          We add variety and new emotions to virtual communication. Join us and
+          make sure that distance is no longer an obstacle to watching films
+          with your friends or sharing happy family video memories!
         </Typography>
 
         <img src={SpaceShip} className="spaceShip" draggable="false" />
 
-        <Link to="/auth" style={{ textDecoration: 'none' }}>
-          <Button variant="contained" className="startButton">Get Started</Button>
+        <Link to="/auth" style={{ textDecoration: "none" }}>
+          <Button variant="contained" className="startButton">
+            Get Started
+          </Button>
         </Link>
       </main>
 

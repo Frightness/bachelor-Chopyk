@@ -1,0 +1,63 @@
+.settingsWrapper {
+  min-height: 100vh;
+  background-color: #17181E;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.changePasswordBox,
+.changeEmailBox {
+  display: flex;
+  gap: 41px;
+  align-items: center;
+}
+
+.changeBox {
+  margin-top: 70px;
+  display: flex;
+  flex-direction: column;
+  gap: 63px;
+}
+
+.mainText {
+  font-size: 38px;
+  margin-top: 30px !important;
+}
+
+input {
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  font-size: 16px;
+  outline: none !important;
+  border: none;
+  padding: 13px 20px;
+}
+
+footer {
+  margin-top: auto !important;
+  padding-bottom: 30px !important;
+}
+
+.deleteAccountButton {
+  background-color: #E7254F !important;
+  border-radius: 8px !important;
+  font-weight: bold !important;
+  padding: 12px 22px !important;
+  text-transform: capitalize !important;
+  font-size: 14px !important;
+}
+
+.saveButton {
+  background-color: #4F339A !important;
+  border-radius: 10px !important;
+  font-weight: bold !important;
+  padding: 12px 30px !important;
+  font-size: 14px !important;
+}
+
+.changeText {
+  font-weight: bold !important;
+  font-size: 18px !important;
+}

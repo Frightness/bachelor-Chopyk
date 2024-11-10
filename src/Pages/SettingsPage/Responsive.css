@@ -1,0 +1,26 @@
+/* Phones and tablets (from 600px to 767px) */
+@media screen and (min-width: 0px) and (max-width: 1200px) {
+
+  .changePasswordBox,
+  .changeEmailBox {
+    flex-direction: column;
+  }
+
+  .changeBox {
+    gap: 100px;
+  }
+
+  input {
+    font-size: 14px;
+  }
+
+  .saveButton {
+    padding: 8px 20px !important;
+    font-size: 12px !important;
+  }
+
+  .deleteAccountButton {
+    padding: 10px 15px !important;
+    font-size: 12px !important;
+  }
+}

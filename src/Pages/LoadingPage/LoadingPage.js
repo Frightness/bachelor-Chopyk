@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 
 export default function LoadingPage() {
   return (
-    <Box className = "loadingWrapper">
+    <Box className="loadingWrapper">
       <CircularProgress />
     </Box>
   );

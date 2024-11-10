@@ -140,13 +140,15 @@ export default function ProfilePage() {
             />
           </IconButton>
 
-          <IconButton aria-label="settings" size="large">
-            <img
-              src={SettingsIcon}
-              alt="Settings"
-              style={{ width: "24px", height: "24px" }}
-            />
-          </IconButton>
+          <Link to="/settings">
+            <IconButton aria-label="settings" size="large">
+              <img
+                src={SettingsIcon}
+                alt="Settings"
+                style={{ width: "24px", height: "24px" }}
+              />
+            </IconButton>
+          </Link>
 
           <IconButton aria-label="logout" size="large" onClick={handleLogout}>
             <img

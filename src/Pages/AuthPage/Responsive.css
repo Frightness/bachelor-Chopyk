@@ -1,5 +1,4 @@
-
-/* Планшети в портретному режимі (від 600px до 767px) */
+/* Tablets (from 600px to 767px) */
 @media screen and (min-width: 600px) and (max-width: 767px) {
   .welcomeBackLoginText {
     font-size: 38px !important;
@@ -9,11 +8,9 @@
   .inputsWrapper {
     width: 390px !important;
   }
+}
 
-
-} 
-
-/* Телефони (до 599px) */
+/* Phones (to 599px) */
 @media screen and (max-width: 599px) {
   .welcomeBackLoginText {
     font-size: 28px !important;

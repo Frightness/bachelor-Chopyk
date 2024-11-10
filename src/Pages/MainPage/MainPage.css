@@ -4,9 +4,11 @@
   0% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-20px);
   }
+
   100% {
     transform: translateY(0);
   }
@@ -17,9 +19,11 @@
     transform: translateX(0) translateY(0);
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }
+
   100% {
     transform: translateX(100vw) translateY(100vh);
     opacity: 0;

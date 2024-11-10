@@ -1,14 +1,4 @@
-/* Десктопи (від 1200px і більше) */
-@media screen and (min-width: 1200px) {
-  /* Ваші стилі для великих екранів */
-}
-
-/* Планшети в горизонтальному режимі (від 768px до 1199px) */
-@media screen and (min-width: 768px) and (max-width: 1199px) {
-  /* Ваші стилі для планшетів в горизонтальному режимі */
-}
-
-/* Планшети в портретному режимі (від 600px до 767px) */
+/* Tablets (from 600px to 767px) */
 @media screen and (min-width: 600px) and (max-width: 767px) {
   .mainText {
     font-size: 30px !important;
@@ -29,7 +19,7 @@
   }
 }
 
-/* Телефони (до 599px) */
+/* Phones (to 599px) */
 @media screen and (max-width: 599px) {
   .mainText {
     font-size: 28px !important;
