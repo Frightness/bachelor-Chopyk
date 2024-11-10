@@ -85,12 +85,44 @@ export default function ProfilePage() {
         </Link>
 
         <Typography className="navItem">
-          <img src={RoomsIcon} height={"25"} alt="Rooms Icon" />
+          <svg
+            width="25"
+            height="25"
+            viewBox="0 0 49 44"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M5.44444 0C2.44149 0 0 2.44149 0 5.44444V29.9444C0 32.9474 2.44149 35.3889 5.44444 35.3889H20.4167L19.5064 38.1111H13.6111C12.1054 38.1111 10.8889 39.3276 10.8889 40.8333C10.8889 42.3391 12.1054 43.5556 13.6111 43.5556H35.3889C36.8946 43.5556 38.1111 42.3391 38.1111 40.8333C38.1111 39.3276 36.8946 38.1111 35.3889 38.1111H29.4936L28.5833 35.3889H43.5556C46.5585 35.3889 49 32.9474 49 29.9444V5.44444C49 2.44149 46.5585 0 43.5556 0H5.44444ZM43.5556 5.44444V29.9444H5.44444V5.44444H43.5556Z"
+              fill="white"
+            />
+          </svg>
           Rooms
         </Typography>
 
         <Typography className="navItem">
-          <img src={LibraryIcon} height={"25"} alt="Library Icon" />
+          <svg
+            width="25"
+            height="25"
+            viewBox="0 0 40 44"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M33.7917 1.125H5.20833C2.95317 1.125 1.125 2.95317 1.125 5.20833V33.7917C1.125 36.0468 2.95317 37.875 5.20833 37.875H33.7917C36.0468 37.875 37.875 36.0468 37.875 33.7917V5.20833C37.875 2.95317 36.0468 1.125 33.7917 1.125Z"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M9.29167 1.125V37.875M1.125 10.3125H9.29167M1.125 19.5H37.875M1.125 28.6875H9.29167M29.7083 1.125V37.875M29.7083 10.3125H37.875M29.7083 28.6875H37.875"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
           Library
         </Typography>
       </nav>
