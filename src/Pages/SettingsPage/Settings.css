@@ -12,6 +12,7 @@
   display: flex;
   gap: 41px;
   align-items: center;
+  justify-content: flex-end !important;
 }
 
 .changeBox {
@@ -60,4 +61,14 @@ footer {
 .changeText {
   font-weight: bold !important;
   font-size: 18px !important;
+}
+
+.head {
+  display: flex;
+  align-items: center !important;
+}
+
+.arrow {
+  position: absolute;
+  left: 30px;
 }

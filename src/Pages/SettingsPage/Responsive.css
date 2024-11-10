@@ -22,5 +22,10 @@
   .deleteAccountButton {
     padding: 10px 15px !important;
     font-size: 12px !important;
+    margin-top: 40px !important;
+  }
+
+  .arrow {
+    height: 30px;
   }
 }
