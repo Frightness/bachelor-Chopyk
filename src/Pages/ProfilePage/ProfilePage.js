@@ -7,6 +7,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import { signOut } from "firebase/auth";
+import LoadingPage from "../LoadingPage/LoadingPage.js";
 
 import TestAvatar from "../../Assets/avatar.jpg";
 import RoomsIcon from "../../Assets/RoomsIcon.svg";
@@ -48,7 +49,7 @@ export default function ProfilePage() {
   const handleCloseModal = () => setOpenModal(false);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return LoadingPage;
   }
 
   if (message) {

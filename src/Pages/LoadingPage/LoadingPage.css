@@ -1,0 +1,7 @@
+.loadingWrapper {
+  min-height: 100vh !important;
+  background-color: #17181E !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
