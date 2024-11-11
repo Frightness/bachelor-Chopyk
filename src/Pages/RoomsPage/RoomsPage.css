@@ -1,0 +1,22 @@
+.roomsPageWrapper {
+  background-color: #17181E;
+  min-height: 100vh;
+  color: white !important;
+}
+
+.navItem {
+  text-decoration: none !important;
+  color: white;
+}
+
+.roomsNavItem {
+  color: #9E7AFF !important;
+}
+
+.createRoomButton {
+  background-color: #613DC1 !important;
+  border-radius: 8px !important;
+  text-transform: initial !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+}

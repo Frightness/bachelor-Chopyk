@@ -17,7 +17,7 @@ export default function PrivateRoute({ children }) {
   }, []);
 
   if (loading) {
-    return LoadingPage;
+    return <LoadingPage />;
   }
 
   if (user) {

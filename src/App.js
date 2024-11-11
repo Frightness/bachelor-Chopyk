@@ -6,16 +6,13 @@ import AuthPage from "./Pages/AuthPage/AuthPage.js";
 import ProfilePage from "./Pages/ProfilePage/ProfilePage.js";
 import PrivateRoute from "./PrivateRoutes.js";
 import SettingsPage from "./Pages/SettingsPage/Settings.js";
+import RoomsPage from "./Pages/RoomsPage/RoomsPage.js";
 
 export default function App() {
   return (
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/auth" element={<AuthPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-
           <Route
             path="/profile"
             element={
@@ -24,6 +21,11 @@ export default function App() {
               </PrivateRoute>
             }
           />
+
+          <Route path="/" element={<MainPage />} />
+          <Route path="/auth" element={<AuthPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/rooms" element={<RoomsPage />} />
         </Routes>
       </Router>
     </div>
