@@ -1,6 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { db, auth } from "../../firebase";
-import { doc, getDoc, collection, addDoc, query, orderBy, onSnapshot } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  onSnapshot,
+} from "firebase/firestore";
 import { format } from "date-fns";
 import "./ChatPage.css";
 
@@ -8,6 +16,7 @@ export default function ChatPage() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [userData, setUserData] = useState(null);
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -41,6 +50,10 @@ export default function ChatPage() {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   const sendMessage = async (e) => {
     e.preventDefault();
     if (newMessage.trim() !== "" && currentUser) {
@@ -59,23 +72,31 @@ export default function ChatPage() {
       <div className="messages">
         {messages.map((msg) => (
           <div key={msg.id} className="message">
-            <img src={msg.avatarUrl} alt={msg.username} className="avatar" />
+            <div className="chatAvatarWrapper">
+              <img src={msg.avatarUrl} alt={msg.username} className="avatar" />
+            </div>
             <div className="messageContent">
               <div className="messageHeader">
                 <span className="username">{msg.username}</span>
                 <span className="timestamp">
-                  {msg.createdAt && format(new Date(msg.createdAt.seconds * 1000), "dd MMM yyyy, HH:mm")}
+                  {msg.createdAt &&
+                    format(
+                      new Date(msg.createdAt.seconds * 1000),
+                      "dd MMM yyyy, HH:mm"
+                    )}
                 </span>
               </div>
               {msg.text && <p className="messageText">{msg.text}</p>}
             </div>
           </div>
         ))}
+        <div ref={messagesEndRef} />
       </div>
       <form onSubmit={sendMessage} className="inputForm">
         <input
           type="text"
           value={newMessage}
+          className="chatField"
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder="Write a message..."
         />
