@@ -12,8 +12,18 @@ nav {
   padding: 30px 0px;
 }
 
+.avatarWrapper {
+  width: 200px !important;
+  height: 200px !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
 .userAvatar {
-  border-radius: 100%;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
 }
 
 .profileDetailsContainer {

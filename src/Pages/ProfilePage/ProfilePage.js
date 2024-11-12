@@ -160,13 +160,14 @@ export default function ProfilePage() {
       </nav>
 
       <main>
-        <img
-          src={userData.avatarUrl}
-          height={"200px"}
-          className="userAvatar"
-          alt="User Avatar"
-          draggable="false"
-        />
+        <Box className = "avatarWrapper">
+          <img
+            src={userData.avatarUrl}
+            className="userAvatar"
+            alt="User Avatar"
+            draggable="false"
+          />
+        </Box>
 
         <input type="file" onChange={handleFileChange} />
 
