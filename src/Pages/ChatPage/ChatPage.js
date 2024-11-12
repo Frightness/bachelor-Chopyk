@@ -39,7 +39,7 @@ export default function ChatPage() {
     : null;
 
   useEffect(() => {
-    const q = query(collection(db, "messages"), orderBy("createdAt"));
+    const q = query(collection(db, "globalChatMessages"), orderBy("createdAt"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let messagesArr = [];
       querySnapshot.forEach((doc) => {
@@ -57,7 +57,7 @@ export default function ChatPage() {
   const sendMessage = async (e) => {
     e.preventDefault();
     if (newMessage.trim() !== "" && currentUser) {
-      await addDoc(collection(db, "messages"), {
+      await addDoc(collection(db, "globalChatMessages"), {
         text: newMessage,
         username: currentUser.username,
         avatarUrl: currentUser.avatarUrl,
