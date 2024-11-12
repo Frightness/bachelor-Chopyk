@@ -1,0 +1,20 @@
+.chatWrapper {
+  min-height: 100vh !important;
+  background-color: #17181E !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center !important;
+  align-items: center !important;
+  color: white;
+}
+
+.avatar {
+  height: 50px !important;
+  border-radius: 100%;
+}
+
+.message, .messageHeader {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}

@@ -1,6 +1,6 @@
 import "./ProfilePage.css";
 import "./Responsive.css";
-import { Button, Typography, Box, Modal } from "@mui/material";
+import { Typography, Box, Modal } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
@@ -10,7 +10,6 @@ import { signOut } from "firebase/auth";
 import LoadingPage from "../LoadingPage/LoadingPage.js";
 import { uploadAvatar } from "../../Services/awsService.js";
 
-import TestAvatar from "../../Assets/avatar.jpg";
 import EditProfileIcon from "../../Assets/EditProfileIcon.svg";
 import SettingsIcon from "../../Assets/SettingsIcon.svg";
 import LogOutIcon from "../../Assets/LogOutIcon.svg";
