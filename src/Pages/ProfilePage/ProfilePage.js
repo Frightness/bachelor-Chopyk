@@ -73,9 +73,9 @@ export default function ProfilePage() {
     try {
       const url = await uploadAvatar(selectedFile);
       setUploadURL(url);
-      alert("Avatar uploaded successfully!");
+      window.location.reload();
     } catch (error) {
-      alert("Avatar upload failed, see console for details.");
+      alert("Avatar uploading failed");
       console.error(error);
     }
   };
@@ -169,9 +169,6 @@ export default function ProfilePage() {
         />
 
         <input type="file" onChange={handleFileChange} />
-        {file && (
-          <p>Uploading: {file.name}</p> // Показуємо назву файлу під час завантаження
-        )}
 
         <Box className="profileDetailsContainer">
           <Box>

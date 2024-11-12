@@ -7,7 +7,6 @@ import ProfilePage from "./Pages/ProfilePage/ProfilePage.js";
 import PrivateRoute from "./PrivateRoutes.js";
 import SettingsPage from "./Pages/SettingsPage/Settings.js";
 import RoomsPage from "./Pages/RoomsPage/RoomsPage.js";
-import TestPage from "./Pages/TestPage.js";
 
 export default function App() {
   return (
