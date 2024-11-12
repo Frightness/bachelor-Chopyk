@@ -55,7 +55,7 @@ export default function AuthPage() {
           "It's default biography for all users, in future you will have opportunity to change it :)",
         favoriteList: "",
         friendsList: "",
-        avatarUrl: "",
+        avatarUrl: "https://cinemly-users-uploaded-videos.s3.eu-north-1.amazonaws.com/avatars/defaultAvatar.svg",
         watchLaterList: "",
       });
 

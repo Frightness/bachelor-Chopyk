@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import { signOut } from "firebase/auth";
 import LoadingPage from "../LoadingPage/LoadingPage.js";
+import { uploadAvatar } from "../../Services/awsService.js";
 
 import TestAvatar from "../../Assets/avatar.jpg";
 import EditProfileIcon from "../../Assets/EditProfileIcon.svg";
@@ -20,6 +21,8 @@ export default function ProfilePage() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
+  const [file, setFile] = useState(null);
+  const [uploadURL, setUploadURL] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,6 +63,37 @@ export default function ProfilePage() {
       navigate("/auth");
     } catch (error) {
       console.error("Logout error:", error);
+    }
+  };
+
+  const handleFileChange = async (event) => {
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
+
+    try {
+      const url = await uploadAvatar(selectedFile);
+      setUploadURL(url);
+      alert("Avatar uploaded successfully!");
+    } catch (error) {
+      alert("Avatar upload failed, see console for details.");
+      console.error(error);
+    }
+  };
+
+  const handleUpload = async () => {
+    if (!file) {
+      alert("Please select a file first!");
+      return;
+    }
+
+    try {
+      const url = await uploadAvatar(file);
+      setUploadURL(url);
+      alert("File uploaded successfully!");
+      window.location.reload();
+    } catch (error) {
+      alert("File upload failed, see console for details.");
+      console.error(error);
     }
   };
 
@@ -127,14 +161,17 @@ export default function ProfilePage() {
 
       <main>
         <img
-          src={TestAvatar}
+          src={userData.avatarUrl}
           height={"200px"}
           className="userAvatar"
           alt="User Avatar"
           draggable="false"
         />
 
-        <input accept="image/*" className="userAvatarChange" type="file" />
+        <input type="file" onChange={handleFileChange} />
+        {file && (
+          <p>Uploading: {file.name}</p> // Показуємо назву файлу під час завантаження
+        )}
 
         <Box className="profileDetailsContainer">
           <Box>
