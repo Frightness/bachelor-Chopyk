@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 function createStars() {
   const stars = [];
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 10; i++) {
     stars.push(
       <div
         key={i}
@@ -29,7 +29,7 @@ export default function MainPage() {
   return (
     <Box className="wrapper">
       <header>
-        <img src={Logo} draggable="false" height={"50"} />
+        <img src={Logo} draggable="false" height={"50"} alt="Logo" />
       </header>
 
       <main>
@@ -43,7 +43,7 @@ export default function MainPage() {
           with your friends or sharing happy family video memories!
         </Typography>
 
-        <img src={SpaceShip} className="spaceShip" draggable="false" />
+        <img src={SpaceShip} className="spaceShip" draggable="false" alt="Space Ship" />
 
         <Link to="/auth" style={{ textDecoration: "none" }}>
           <Button variant="contained" className="startButton">

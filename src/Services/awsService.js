@@ -26,7 +26,7 @@ export async function uploadAvatar(file) {
 
       if (
         oldAvatarURL &&
-        oldAvatarURL !=
+        oldAvatarURL !==
           "https://cinemly-users-uploaded-videos.s3.eu-north-1.amazonaws.com/avatars/defaultAvatar.svg"
       ) {
         const fileName = oldAvatarURL.split("/").pop();
