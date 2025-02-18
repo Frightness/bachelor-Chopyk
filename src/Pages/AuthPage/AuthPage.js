@@ -2,13 +2,8 @@ import "./AuthPage.css";
 import "./Responsive.css";
 import { Box, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { auth, db } from "../../firebase";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { doc, setDoc, getDoc } from "firebase/firestore";
-import axios from "axios";
+import { loginService } from "../../Services/authService";
+import { registerService } from "../../Services/authService";
 
 import PinkSphere from "../../Assets/PinkSphereAuth.svg";
 import BlackSphere from "../../Assets/BlackSphereAuth.svg";
@@ -28,68 +23,41 @@ export default function AuthPage() {
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
-      setMessage("Passwords don't match :(");
+      setMessage("Passwords don't match!");
       return;
     }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
-
-      const ipResponse = await axios.get("https://api.ipify.org?format=json");
-      const ipAddress = ipResponse.data.ip;
-
-      const localDate = new Date();
-      const localDateString = localDate.toLocaleString();
-
-      await setDoc(doc(db, "users", user.uid), {
-        username: username,
-        email: email,
-        created_at: localDateString,
-        location: ipAddress,
-        biography:
-          "It's default biography for all users, in future you will have opportunity to change it :)",
-        favoriteList: "",
-        friendsList: "",
-        avatarUrl: "https://cinemly-users-uploaded-videos.s3.eu-north-1.amazonaws.com/avatars/defaultAvatar.svg",
-        watchLaterList: "",
-      });
-
-      setMessage("Registration successful!");
+      const user = await registerService(email, password, username);
+      if (!user) {
+        setMessage(user.message);
+        return;
+      }
 
       setTimeout(function () {
         window.location.href = "/profile";
       }, 1000);
     } catch (error) {
-      setMessage(`Error: Invalid data, try again!`);
+      setMessage(error.message);
     }
   };
 
   const handleLogin = async () => {
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
+      const user = await loginService(email, password);
 
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
+      console.log(user);
 
-      if (docSnap.exists()) {
-        console.log("User data:", docSnap.data());
+      if (!user.success) {
+        setMessage(user.message);
+        return;
+      } else {
+        setMessage(user.message);
+
+        setTimeout(function () {
+          window.location.href = "/profile";
+        }, 1000);
       }
-
-      setMessage("Login successful!");
-
-      setTimeout(function () {
-        window.location.href = "/profile";
-      }, 1000);
     } catch (error) {
       setMessage(`Error: Invalid data, try again!`);
     }

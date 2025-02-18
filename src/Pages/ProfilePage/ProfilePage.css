@@ -76,4 +76,14 @@ nav {
   display: flex;
   gap: 100px;
   justify-content: flex-end;
+  text-align: center !important;
+}
+
+.modalUsernameInput, .modalEmailInput {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 15px !important;
+}
+
+.modalUsernameInput .MuiOutlinedInput-notchedOutline, .modalEmailInput .MuiOutlinedInput-notchedOutline{
+  border: none !important;
 }
