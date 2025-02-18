@@ -14,15 +14,8 @@ import {
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import AWS from "aws-sdk";
+import { uploadVideo } from "../../Services/uploadVideoService"
 
-AWS.config.update({
-  accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
-  region: process.env.REACT_APP_AWS_REGION,
-});
-
-const s3 = new AWS.S3();
 const firestore = getFirestore();
 
 export default function RoomsPage() {
@@ -38,14 +31,14 @@ export default function RoomsPage() {
   };
 
   const uploadVideoToS3 = async (file) => {
-    const params = {
-      Bucket: process.env.REACT_APP_S3_BUCKET_NAME,
-      Key: `user-videos/${file.name}`,
-      Body: file,
-      ContentType: file.type,
-    };
-    const upload = await s3.upload(params).promise();
-    return upload.Location;
+    const path = await uploadVideo(file);
+    if (path.success) {
+      console.log(path.video_path);
+      return path.video_path
+    } else {
+      console.log("")
+      return
+    }
   };
 
   const handleCreateRoom = async () => {
