@@ -1,0 +1,13 @@
+.roomWrapper {
+  display: flex;
+}
+
+.video {
+  height: 70% !important;
+  width: 70% !important;
+}
+
+.roomInfo {
+  color: white;
+  padding-left: 40px;
+}

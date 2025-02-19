@@ -11,9 +11,9 @@ import {
   FormControlLabel,
   Radio,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, updateDoc } from "firebase/firestore";
 import { uploadVideo } from "../../Services/uploadVideoService"
 
 const firestore = getFirestore();
@@ -25,6 +25,7 @@ export default function RoomsPage() {
   const [file, setFile] = useState(null);
   const [roomName, setRoomName] = useState("");
   const [numParticipants, setNumParticipants] = useState("");
+  const navigate = useNavigate();
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -54,12 +55,15 @@ export default function RoomsPage() {
         type: roomType,
         streamSource,
         videoUrl,
-        room_id: Date.now(),
         createdAt: new Date(),
       };
-      await addDoc(collection(firestore, "rooms"), roomData);
+      const docRef = await addDoc(collection(firestore, "rooms"), roomData);
+      await updateDoc(docRef, {room_id: docRef.id,});
+      
       setOpen(false);
       console.log("Room successfully created!");
+
+      navigate(`/room/${docRef.id}`);
     } catch (error) {
       console.error("Error creating room:", error);
     }
@@ -78,6 +82,7 @@ export default function RoomsPage() {
           Library
         </Link>
       </nav>
+
       <main>
         <Button
           className="createRoomButton"
@@ -87,6 +92,7 @@ export default function RoomsPage() {
           Create a room
         </Button>
       </main>
+
       <Modal open={open} onClose={() => setOpen(false)}>
         <Box className="modalContent">
           <Typography
@@ -172,6 +178,30 @@ export default function RoomsPage() {
               sx={{ color: "white" }}
             />
           </RadioGroup>
+
+          {roomType === "Private" && (
+            <TextField
+              fullWidth
+              placeholder="Room password"
+              margin="normal"
+              type="text"
+              className="modalInputField"
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    border: 'none',
+                  },
+                  '&.Mui-focused fieldset': {
+                    border: 'none',
+                  },
+                },
+                '& .MuiInputBase-root': {
+                  outline: 'none',
+                }
+              }}
+            />
+          )}
+
           <Button
             fullWidth
             variant="contained"

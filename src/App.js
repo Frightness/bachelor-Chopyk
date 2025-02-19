@@ -8,6 +8,7 @@ import PrivateRoute from "./PrivateRoutes.js";
 import SettingsPage from "./Pages/SettingsPage/Settings.js";
 import RoomsPage from "./Pages/RoomsPage/RoomsPage.js";
 import ChatPage from "./Pages/ChatPage/ChatPage.js";
+import RoomPage from "./Pages/RoomPage/RoomPage.js";
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/rooms" element={<RoomsPage />} />
           <Route path="/chat" element={<ChatPage />} />
+          <Route path="/room/:roomID" element={<RoomPage />} />
         </Routes>
       </Router>
     </div>
