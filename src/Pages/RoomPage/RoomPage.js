@@ -13,7 +13,7 @@ export default function RoomPage() {
       const docRef = doc(db, "rooms", roomID);
       const docSnap = await getDoc(docRef);
       
-      console.log(docSnap.data())
+      console.log(roomInfo)
       if (docSnap.exists()) {
         setRoomInfo(docSnap.data());
       } else {
@@ -29,9 +29,9 @@ export default function RoomPage() {
       <video controls className="video" src={roomInfo.videoUrl}></video>
 
       <div className="roomInfo">
-        <p>Room name: {roomInfo.name}</p>
-        <p>Max participants: {roomInfo.participants}</p>
-        <p>Room type: {roomInfo.type}</p>
+        <p>Room name: {roomInfo.roomName}</p>
+        <p>Max participants: {roomInfo.numParticipants}</p>
+        <p>Room type: {roomInfo.roomType}</p>
       </div>
     </div>
   );
