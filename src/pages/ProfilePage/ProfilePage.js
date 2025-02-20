@@ -2,7 +2,7 @@ import "./ProfilePage.css";
 import "./Responsive.css";
 import { Typography, Box, Modal } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { auth, db } from "../../../firebase.js";
+import { auth, db } from "../../firebase.js";
 import { doc, getDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
