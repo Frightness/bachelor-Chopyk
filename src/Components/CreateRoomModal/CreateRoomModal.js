@@ -11,7 +11,7 @@ import {
   FormControlLabel,
   Radio,
 } from "@mui/material";
-import { uploadVideo } from "../../Services/uploadVideoService";
+import { uploadVideo } from "../../services/uploadVideoService";
 
 export default function CreateRoomModal({ open, onClose, onCreate }) {
   const [roomType, setRoomType] = useState("Public");

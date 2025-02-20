@@ -1,20 +1,20 @@
 import "./ProfilePage.css";
 import "./Responsive.css";
-import { Typography, Box, Modal, FormLabel } from "@mui/material";
+import { Typography, Box, Modal } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { auth, db } from "../../firebase";
+import { auth, db } from "../../firebase.js";
 import { doc, getDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import { signOut } from "firebase/auth";
-import LoadingPage from "../LoadingPage/LoadingPage.js";
-import { uploadAvatar } from "../../Services/awsService.js";
+import LoadingPage from "../../pages/LoadingPage/LoadingPage.js";
+import { uploadAvatar } from "../../services/awsService.js";
 import OutlinedInput from '@mui/material/OutlinedInput';
 
-import EditProfileIcon from "../../Assets/EditProfileIcon.svg";
-import SettingsIcon from "../../Assets/SettingsIcon.svg";
-import LogOutIcon from "../../Assets/LogOutIcon.svg";
-import CloseWindowIcon from "../../Assets/CloseWindowIcon.svg";
+import EditProfileIcon from "../../assets/EditProfileIcon.svg";
+import SettingsIcon from "../../assets/SettingsIcon.svg";
+import LogOutIcon from "../../assets/LogOutIcon.svg";
+import CloseWindowIcon from "../../assets/CloseWindowIcon.svg";
 
 export default function ProfilePage() {
   const [userData, setUserData] = useState(null);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { auth } from "./firebase";
-import LoadingPage from "./Pages/LoadingPage/LoadingPage.js";
+import LoadingPage from "./pages/LoadingPage/LoadingPage";
 
 export default function PrivateRoute({ children }) {
   const [loading, setLoading] = useState(true);

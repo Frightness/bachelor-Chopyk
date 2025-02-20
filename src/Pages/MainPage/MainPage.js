@@ -1,7 +1,7 @@
 import "./MainPage.css";
 import "./Responsive.css";
-import Logo from "../../Assets/Logo.svg";
-import SpaceShip from "../../Assets/MainPageSpaceShip.svg";
+import Logo from "../../assets/Logo.svg";
+import SpaceShip from "../../assets/MainPageSpaceShip.svg";
 
 import { Box, Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";

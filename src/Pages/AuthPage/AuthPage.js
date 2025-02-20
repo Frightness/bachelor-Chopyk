@@ -2,11 +2,11 @@ import "./AuthPage.css";
 import "./Responsive.css";
 import { Box, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { loginService } from "../../Services/authService";
-import { registerService } from "../../Services/authService";
+import { loginService } from "../../services/authService";
+import { registerService } from "../../services/authService";
 
-import PinkSphere from "../../Assets/PinkSphereAuth.svg";
-import BlackSphere from "../../Assets/BlackSphereAuth.svg";
+import PinkSphere from "../../assets/PinkSphereAuth.svg";
+import BlackSphere from "../../assets/BlackSphereAuth.svg";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);

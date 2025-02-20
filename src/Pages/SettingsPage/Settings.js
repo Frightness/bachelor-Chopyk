@@ -11,7 +11,7 @@ import {
   EmailAuthProvider,
 } from "firebase/auth";
 
-import BackArrow from "../../Assets/BackArrowIcon.svg";
+import BackArrow from "../../assets/BackArrowIcon.svg";
 
 export default function SettingsPage() {
   const [oldPassword, setOldPassword] = useState("");

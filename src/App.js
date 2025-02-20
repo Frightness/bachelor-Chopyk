@@ -1,14 +1,14 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import MainPage from "./Pages/MainPage/MainPage.js";
-import AuthPage from "./Pages/AuthPage/AuthPage.js";
-import ProfilePage from "./Pages/ProfilePage/ProfilePage.js";
+import MainPage from "./pages/MainPage/MainPage.js";
+import AuthPage from "./pages/AuthPage/AuthPage.js";
+import ProfilePage from "./pages/ProfilePage/ProfilePage.js";
 import PrivateRoute from "./PrivateRoutes.js";
-import SettingsPage from "./Pages/SettingsPage/Settings.js";
-import RoomsPage from "./Pages/RoomsPage/RoomsPage.js";
-import ChatPage from "./Pages/ChatPage/ChatPage.js";
-import RoomPage from "./Pages/RoomPage/RoomPage.js";
+import SettingsPage from "./pages/SettingsPage/Settings.js";
+import RoomsPage from "./pages/RoomsPage/RoomsPage.js";
+import ChatPage from "./pages/ChatPage/ChatPage.js";
+import RoomPage from "./pages/RoomPage/RoomPage.js";
 
 export default function App() {
   return (

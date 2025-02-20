@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { IconButton, TextField, Typography } from "@mui/material";
-import SettingsIcon from "../../Assets/SettingsIcon.svg";
-import LogOutIcon from "../../Assets/LogOutIcon.svg";
+import SettingsIcon from "../../assets/SettingsIcon.svg";
+import LogOutIcon from "../../assets/LogOutIcon.svg";
 import Divider from "@mui/material/Divider";
 
 export default function RoomPage() {
