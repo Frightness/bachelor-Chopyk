@@ -1,30 +1,39 @@
 import "./RoomsPage.css";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { getFirestore, collection, addDoc, updateDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import ProfileIcon from "../../Assets/ProfileIcon.svg";
 import RoomsIcon from "../../Assets/RoomsIcon.svg";
 import LibraryIcon from "../../Assets/LibraryIcon.svg";
 import CreateRoomModal from "../../Components/CreateRoomModal/CreateRoomModal";
-
-const firestore = getFirestore();
+import { getRoomsList } from "../../Services/getRoomsListService";
+import { createRoom } from "../../Services/createRoomService";
 
 export default function RoomsPage() {
+  const [roomsList, setRoomsList] = useState([]);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleCreateRoom = async (roomData) => {
-    try {
-      const docRef = await addDoc(collection(firestore, "rooms"), {
-        ...roomData,
-        createdAt: new Date(),
-      });
-      await updateDoc(docRef, { room_id: docRef.id });
+  useEffect(() => {
+    const fetchRooms = async () => {
+      const roomsList = await getRoomsList();
+      if (roomsList.success) {
+        setRoomsList(roomsList.roomsData);
+      } else {
+        console.log(roomsList.message);
+      }
+    };
 
-      navigate(`/room/${docRef.id}`);
-    } catch (error) {
-      console.error("Error creating room:", error);
+    fetchRooms();
+  }, []);
+
+  const handleCreateRoom = async (roomData) => {
+    const createRoomResponse = await createRoom(roomData);
+
+    if (createRoomResponse.success) {
+      navigate(`/room/${createRoomResponse.docRef.id}`);
+    } else {
+      console.log(createRoomResponse.message);
     }
   };
 
@@ -57,7 +66,33 @@ export default function RoomsPage() {
         </Button>
       </main>
 
-      <CreateRoomModal open={open} onClose={() => setOpen(false)} onCreate={handleCreateRoom} />
+      <div className="publicRoomsText">
+        <Typography>Public rooms</Typography>
+        <Typography>You can join any of them</Typography>
+      </div>
+
+      <div className="roomsList">
+        {roomsList.map((room) => (
+          <div className="roomInfo" key={room.room_id}>
+            <img
+              className="roomImage"
+              src="https://static.vecteezy.com/system/resources/thumbnails/020/510/220/small_2x/gaming-workstation-neon-lights-room-video.jpg"
+            ></img>
+            <Link className="roomName" to={`/room/${room.room_id}`}>
+              {room.roomName}
+            </Link>
+            <Typography className="participantsInfo">
+              Participants: {room.currentParticipants}/{room.numParticipants}
+            </Typography>
+          </div>
+        ))}
+      </div>
+
+      <CreateRoomModal
+        open={open}
+        onClose={() => setOpen(false)}
+        onCreate={handleCreateRoom}
+      />
     </div>
   );
 }

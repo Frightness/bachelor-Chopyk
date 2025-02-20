@@ -17,6 +17,7 @@ export default function CreateRoomModal({ open, onClose, onCreate }) {
   const [roomType, setRoomType] = useState("Public");
   const [streamSource, setStreamSource] = useState("Choose stream source");
   const [roomPassword, setRoomPassword] = useState("");
+  const [currentParticipants, setCurrentParticipants] = useState(0);
   const [file, setFile] = useState(null);
   const [roomName, setRoomName] = useState("");
   const [numParticipants, setNumParticipants] = useState("");
@@ -43,6 +44,7 @@ export default function CreateRoomModal({ open, onClose, onCreate }) {
       streamSource,
       videoUrl,
       roomPassword,
+      currentParticipants
     });
     onClose();
   };

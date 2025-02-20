@@ -11,3 +11,39 @@
   color: white;
   padding-left: 40px;
 }
+
+.sideBar {
+  width: 30vw !important;
+  height: 89vh !important;
+}
+
+.sideBarHeader {
+  display: flex;
+  align-items: center;
+  color: white;
+  background-color: #200B1E !important;
+  padding: 10px 35px;
+  justify-content: space-between !important;
+}
+
+.iconButton {
+  background-color: #613DC1 !important;
+  border-radius: 100%;
+  height: 40px;
+  width: 40px;
+}
+
+.roomChat {
+  background-color: #141217;
+  padding: 20px;
+  height: 100%;
+  position: relative !important;
+  overflow-y: scroll !important;
+}
+
+.chatMessageField {
+  background-color: #3A3838 !important;
+  border-radius: 50px !important;
+  width: 100% !important;
+  z-index: 999 !important;
+}
