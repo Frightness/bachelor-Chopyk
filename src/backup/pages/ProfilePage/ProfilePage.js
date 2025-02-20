@@ -2,12 +2,12 @@ import "./ProfilePage.css";
 import "./Responsive.css";
 import { Typography, Box, Modal } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { auth, db } from "../../firebase.js";
+import { auth, db } from "../../../firebase.js";
 import { doc, getDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import { signOut } from "firebase/auth";
-import LoadingPage from "../../pages/LoadingPage/LoadingPage.js";
+import LoadingPage from "../LoadingPage/LoadingPage.js";
 import { uploadAvatar } from "../../services/awsService.js";
 import OutlinedInput from '@mui/material/OutlinedInput';
 
