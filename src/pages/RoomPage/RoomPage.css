@@ -1,49 +1,261 @@
 .roomWrapper {
   display: flex;
+  height: 100vh;
+  background-color: #17181E;
+  overflow: hidden;
 }
 
 .video {
-  height: 70% !important;
-  width: 70% !important;
+  flex: 1;
+  height: 100%;
+  background-color: black;
+  max-width: calc(100% - 300px);
+  object-fit: contain;
 }
 
-.roomInfo {
-  color: white;
-  padding-left: 40px;
+.video iframe {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .sideBar {
-  width: 30vw !important;
-  height: 89vh !important;
+  width: 300px;
+  min-width: 300px;
+  background-color: #17181E;
+  color: white;
+  display: flex;
+  flex-direction: column;
 }
 
 .sideBarHeader {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  color: white;
-  background-color: #200B1E !important;
-  padding: 10px 35px;
-  justify-content: space-between !important;
+  padding: 10px;
 }
 
 .iconButton {
-  background-color: #613DC1 !important;
-  border-radius: 100%;
-  height: 40px;
-  width: 40px;
+  color: white !important;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tab {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  text-align: center;
+}
+
+.tab:hover {
+  background-color: rgba(97, 61, 193, 0.1);
+}
+
+.tab.active {
+  background-color: #613DC1;
+  color: white;
 }
 
 .roomChat {
-  background-color: #141217;
-  padding: 20px;
-  height: 100%;
-  position: relative !important;
-  overflow-y: scroll !important;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.message {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.message.sent {
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+
+.chatAvatarWrapper {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50%;
+  overflow: hidden !important;
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.messageContent {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 8px 12px;
+  border-radius: 18px;
+  max-width: 70%;
+  width: fit-content;
+}
+
+.message.sent .messageContent {
+  background-color: #613DC1;
+}
+
+.messageText {
+  color: #fff;
+  margin-bottom: 4px;
+  word-break: break-word;
+}
+
+.messageInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.message.sent .messageInfo {
+  flex-direction: row-reverse;
+}
+
+.username {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.timestamp {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.messageHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.message.sent .messageHeader {
+  flex-direction: row-reverse;
+}
+
+.messageForm {
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background-color: #1E1F25;
 }
 
 .chatMessageField {
-  background-color: #3A3838 !important;
-  border-radius: 50px !important;
-  width: 100% !important;
-  z-index: 999 !important;
+  flex: 1;
+  background-color: #17181E;
+  border-radius: 8px;
+  min-width: 0;
+}
+
+.chatMessageField input {
+  color: white !important;
+}
+
+.sendButton {
+  padding: 8px !important;
+  background-color: #613DC1 !important;
+  border-radius: 8px !important;
+  min-width: 40px !important;
+  height: 40px !important;
+  flex-shrink: 0;
+}
+
+.sendButton:hover {
+  background-color: #4e31a0 !important;
+}
+
+.participantsList {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.participant {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: rgba(97, 61, 193, 0.1);
+  transition: background-color 0.2s;
+}
+
+.participant:hover {
+  background-color: rgba(97, 61, 193, 0.2);
+}
+
+.participantAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.participantAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.participantInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.participantName {
+  font-weight: 600;
+  color: white;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+  .sideBar {
+    width: 100%;
+    min-width: 100%;
+    max-height: 60vh;
+  }
+  
+  .roomWrapper {
+    flex-direction: column;
+  }
+  
+  .video {
+    height: 40vh;
+    max-width: 100%;
+  }
+
+  .participantsList {
+    max-height: calc(60vh - 120px);
+  }
 }

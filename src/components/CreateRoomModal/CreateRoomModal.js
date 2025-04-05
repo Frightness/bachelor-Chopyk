@@ -10,6 +10,8 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  CircularProgress,
+  FormHelperText,
 } from "@mui/material";
 import { uploadVideo } from "../../services/uploadVideoService";
 
@@ -22,17 +24,42 @@ export default function CreateRoomModal({ open, onClose, onCreate }) {
   const [roomName, setRoomName] = useState("");
   const [numParticipants, setNumParticipants] = useState("");
   const [youtubeVideoURL, setYouTubeVideoURL] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [urlError, setUrlError] = useState("");
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
+  const validateYouTubeUrl = (url) => {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return match && match[2].length === 11;
+  };
+
+  const handleYouTubeURLChange = (e) => {
+    const url = e.target.value;
+    setYouTubeVideoURL(url);
+    
+    if (url && !validateYouTubeUrl(url)) {
+      setUrlError("Please enter a valid YouTube URL");
+    } else {
+      setUrlError("");
+    }
+  };
+
   const handleCreate = async () => {
+    if (streamSource === "YouTube" && !validateYouTubeUrl(youtubeVideoURL)) {
+      setUrlError("Please enter a valid YouTube URL");
+      return;
+    }
+
+    setLoading(true);
     let videoUrl = "";
     if (streamSource === "My own video" && file) {
-      videoUrl = await uploadVideo(file);
-      if (!videoUrl.success) return;
-      videoUrl = videoUrl.video_path;
+      const uploadResponse = await uploadVideo(file);
+      if (!uploadResponse.success) return;
+      videoUrl = uploadResponse.video_path;
     } else {
       videoUrl = youtubeVideoURL;
     }
@@ -44,8 +71,9 @@ export default function CreateRoomModal({ open, onClose, onCreate }) {
       streamSource,
       videoUrl,
       roomPassword,
-      currentParticipants
+      currentParticipants,
     });
+    setLoading(false);
     onClose();
   };
 
@@ -137,27 +165,34 @@ export default function CreateRoomModal({ open, onClose, onCreate }) {
           </Box>
         )}
         {streamSource === "YouTube" && (
-          <TextField
-            fullWidth
-            placeholder="YouTube video URL"
-            margin="normal"
-            type="text"
-            className="modalInputField"
-            onChange={(e) => setYouTubeVideoURL(e.target.value)}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  border: "none",
+          <Box marginTop={2}>
+            <TextField
+              fullWidth
+              placeholder="YouTube video URL"
+              margin="normal"
+              type="text"
+              error={!!urlError}
+              helperText={urlError}
+              className="modalInputField"
+              onChange={handleYouTubeURLChange}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    border: "none",
+                  },
+                  "&.Mui-focused fieldset": {
+                    border: "none",
+                  },
                 },
-                "&.Mui-focused fieldset": {
-                  border: "none",
+                "& .MuiInputBase-root": {
+                  outline: "none",
                 },
-              },
-              "& .MuiInputBase-root": {
-                outline: "none",
-              },
-            }}
-          />
+              }}
+            />
+            {urlError && (
+              <FormHelperText error>{urlError}</FormHelperText>
+            )}
+          </Box>
         )}
         <Typography
           variant="subtitle1"
@@ -207,15 +242,19 @@ export default function CreateRoomModal({ open, onClose, onCreate }) {
             }}
           />
         )}
-        <Button
-          fullWidth
-          variant="contained"
-          className="createButton"
-          sx={{ mt: 2 }}
-          onClick={handleCreate}
-        >
-          Create
-        </Button>
+        {loading ? (
+          <CircularProgress color="secondary" />
+        ) : (
+          <Button
+            fullWidth
+            variant="contained"
+            className="createButton"
+            sx={{ mt: 2 }}
+            onClick={handleCreate}
+          >
+            Create
+          </Button>
+        )}
       </Box>
     </Modal>
   );

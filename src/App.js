@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
 
 import MainPage from "./pages/MainPage/MainPage.js";
 import AuthPage from "./pages/AuthPage/AuthPage.js";
@@ -13,25 +14,27 @@ import RoomPage from "./pages/RoomPage/RoomPage.js";
 export default function App() {
   return (
     <div className="App">
-      <Router>
-        <Routes>
-          <Route
-            path="/profile"
-            element={
-              <PrivateRoute>
-                <ProfilePage />
-              </PrivateRoute>
-            }
-          />
+      <AuthProvider>
+        <Router>
+          <Routes>
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <ProfilePage />
+                </PrivateRoute>
+              }
+            />
 
-          <Route path="/" element={<MainPage />} />
-          <Route path="/auth" element={<AuthPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          <Route path="/rooms" element={<RoomsPage />} />
-          <Route path="/chat" element={<ChatPage />} />
-          <Route path="/room/:roomID" element={<RoomPage />} />
-        </Routes>
-      </Router>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/rooms" element={<RoomsPage />} />
+            <Route path="/chat" element={<ChatPage />} />
+            <Route path="/room/:roomID" element={<RoomPage />} />
+          </Routes>
+        </Router>
+      </AuthProvider>
     </div>
   );
 }

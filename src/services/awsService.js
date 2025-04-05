@@ -71,7 +71,6 @@ async function deleteAvatarFromS3(fileName) {
 
   try {
     await s3.deleteObject(params).promise();
-    console.log("Old avatar deleted from S3");
   } catch (error) {
     console.error("Error deleting old avatar:", error);
   }

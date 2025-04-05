@@ -1,7 +1,7 @@
 import "./ProfilePage.css";
 import "./Responsive.css";
 import { Typography, Box, Modal } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { auth, db } from "../../firebase.js";
 import { doc, getDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
@@ -21,7 +21,7 @@ export default function ProfilePage() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
-  const [file, setFile] = useState(null);
+  const fileInputRef = useRef(null);
   const [uploadURL, setUploadURL] = useState("");
   const navigate = useNavigate();
 
@@ -66,34 +66,20 @@ export default function ProfilePage() {
     }
   };
 
+  const handleAvatarClick = () => {
+    fileInputRef.current.click();
+  };
+
   const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
-    setFile(selectedFile);
+    if (!selectedFile) return;
 
     try {
       const url = await uploadAvatar(selectedFile);
       setUploadURL(url);
       window.location.reload();
     } catch (error) {
-      alert("Avatar uploading failed");
-      console.error(error);
-    }
-  };
-
-  const handleUpload = async () => {
-    if (!file) {
-      alert("Please select a file first!");
-      return;
-    }
-
-    try {
-      const url = await uploadAvatar(file);
-      setUploadURL(url);
-      alert("File uploaded successfully!");
-      window.location.reload();
-    } catch (error) {
-      alert("File upload failed, see console for details.");
-      console.error(error);
+      console.error("Avatar uploading failed:", error);
     }
   };
 
@@ -160,16 +146,27 @@ export default function ProfilePage() {
       </nav>
 
       <main>
-        <Box className="avatarWrapper">
+        <Box className="avatarWrapper" onClick={handleAvatarClick}>
           <img
-            src={userData.avatarUrl}
+            src={userData?.avatarUrl}
             className="userAvatar"
             alt="User Avatar"
             draggable="false"
           />
+          <div className="avatarOverlay">
+            <svg className="galleryIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5-7l-3 3.72L9 13l-3 4h12l-4-5z"/>
+            </svg>
+          </div>
         </Box>
 
-        <input type="file" onChange={handleFileChange} />
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          accept="image/*"
+          style={{ display: 'none' }}
+        />
 
         <Box className="profileDetailsContainer">
           <Box>

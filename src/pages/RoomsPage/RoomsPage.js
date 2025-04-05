@@ -8,6 +8,8 @@ import LibraryIcon from "../../assets/LibraryIcon.svg";
 import CreateRoomModal from "../../components/CreateRoomModal/CreateRoomModal";
 import { getRoomsList } from "../../services/getRoomsListService";
 import { createRoom } from "../../services/createRoomService";
+import { db } from "../../firebase";
+import { onSnapshot, collection, query, where } from "firebase/firestore";
 
 export default function RoomsPage() {
   const [roomsList, setRoomsList] = useState([]);
@@ -15,19 +17,39 @@ export default function RoomsPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchRooms = async () => {
-      const roomsList = await getRoomsList();
-      if (roomsList.success) {
-        setRoomsList(roomsList.roomsData);
-      } else {
-        console.log(roomsList.message);
-      }
-    };
+    const roomsRef = collection(db, "rooms");
+    const q = query(roomsRef, where("roomType", "==", "Public"));
 
-    fetchRooms();
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const rooms = [];
+      const now = Date.now();
+      
+      querySnapshot.forEach((doc) => {
+        const roomData = doc.data();
+        const participants = roomData.participants || {};
+        
+        const activeParticipants = Object.values(participants).filter(
+          p => p && p.lastActivity && (now - p.lastActivity) < 60000
+        );
+
+        rooms.push({
+          ...roomData,
+          room_id: doc.id,
+          currentParticipants: activeParticipants.length
+        });
+      });
+      
+      setRoomsList(rooms);
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const handleCreateRoom = async (roomData) => {
+    if (!roomData) {
+      return;
+    }
+
     const createRoomResponse = await createRoom(roomData);
 
     if (createRoomResponse.success) {
@@ -77,7 +99,8 @@ export default function RoomsPage() {
             <img
               className="roomImage"
               src="https://static.vecteezy.com/system/resources/thumbnails/020/510/220/small_2x/gaming-workstation-neon-lights-room-video.jpg"
-            ></img>
+              alt="icon"
+            />
             <Link className="roomName" to={`/room/${room.room_id}`}>
               {room.roomName}
             </Link>

@@ -1,24 +1,26 @@
 import {
   getFirestore,
   collection,
-  addDoc,
-  updateDoc,
+  setDoc,
+  serverTimestamp,
+  doc,
 } from "firebase/firestore";
 
 const firestore = getFirestore();
 
 export const createRoom = async (roomData) => {
   try {
-    const docRef = await addDoc(collection(firestore, "rooms"), {
+    const docRef = doc(collection(firestore, "rooms"));
+    await setDoc(docRef, {
       ...roomData,
-      createdAt: new Date(),
+      room_id: docRef.id,
+      createdAt: serverTimestamp(),
     });
-    await updateDoc(docRef, { room_id: docRef.id });
 
     if (docRef) {
-      return {success: true, docRef}
+      return { success: true, docRef };
     }
   } catch (error) {
-    return {success: false, message: "Something went wrong, try again!"}
+    return { success: false, message: "Something went wrong, try again!" };
   }
 };

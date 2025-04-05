@@ -63,7 +63,7 @@ export default function SettingsPage() {
     <Box className="settingsWrapper">
       <Box className="head">
         <Link to="/profile">
-          <img src={BackArrow} className="arrow" />
+          <img src={BackArrow} className="arrow" alt="arrow" />
         </Link>
         <Typography className="mainText">Settings</Typography>
       </Box>
