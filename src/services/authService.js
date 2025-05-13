@@ -2,8 +2,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { doc, setDoc, getDoc } from "firebase/firestore";
-import axios from "axios";
+import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../firebase";
 
 export const loginService = async (email, password) => {
@@ -37,24 +36,14 @@ export const registerService = async (email, password, username) => {
     );
     const user = userCredential.user;
 
-    const ipResponse = await axios.get("https://api.ipify.org?format=json");
-    const ipAddress = ipResponse.data.ip;
-
-    const localDate = new Date();
-    const localDateString = localDate.toLocaleString();
-
     await setDoc(doc(db, "users", user.uid), {
       username: username,
       email: email,
-      created_at: localDateString,
-      location: ipAddress,
+      created_at: serverTimestamp(),
       biography:
-        "It's default biography for all users, in future you will have opportunity to change it :)",
-      favoriteList: "",
-      friendsList: "",
+        "It's the default biography for all users. In the future you will have the opportunity to change it :)",
       avatarUrl:
         "https://cinemly-users-uploaded-videos.s3.eu-north-1.amazonaws.com/avatars/defaultAvatar.svg",
-      watchLaterList: "",
     });
 
     return { success: true, message: "Registration successful!" };

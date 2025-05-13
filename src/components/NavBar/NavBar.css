@@ -1,0 +1,27 @@
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 20px;
+  width: 100%;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: opacity 0.2s ease;
+}
+
+.navItem:hover {
+  opacity: 0.8;
+}
+
+.profileNavItem {
+  color: #9E7AFF;
+}

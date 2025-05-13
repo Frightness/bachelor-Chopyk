@@ -10,7 +10,7 @@ const VideoPlayer = ({ src }) => {
       autoPlay
       src={src}
     >
-      Your browser does not support the video tag.
+      Your browser does not support the video tag
     </video>
   );
 };

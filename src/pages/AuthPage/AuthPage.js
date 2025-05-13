@@ -4,7 +4,6 @@ import { Box, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { loginService } from "../../services/authService";
 import { registerService } from "../../services/authService";
-
 import PinkSphere from "../../assets/PinkSphereAuth.svg";
 import BlackSphere from "../../assets/BlackSphereAuth.svg";
 
@@ -14,7 +13,7 @@ export default function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(null);
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -23,14 +22,14 @@ export default function AuthPage() {
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
-      setMessage("Passwords don't match!");
+      setMessage({ success: false, message: "Passwords don't match" });
       return;
     }
 
     try {
       const user = await registerService(email, password, username);
       if (!user) {
-        setMessage(user.message);
+        setMessage({ success: false, message: user.message });
         return;
       }
 
@@ -38,7 +37,7 @@ export default function AuthPage() {
         window.location.href = "/profile";
       }, 1000);
     } catch (error) {
-      setMessage(error.message);
+      setMessage({ success: false, message: error.message });
     }
   };
 
@@ -46,14 +45,12 @@ export default function AuthPage() {
     try {
       const user = await loginService(email, password);
 
-      console.log(user);
-
       if (!user.success) {
-        setMessage(user.message);
+        setMessage(user);
         return;
       } else {
-        setMessage(user.message);
-
+        setMessage(user);
+        
         setTimeout(function () {
           window.location.href = "/profile";
         }, 1000);
@@ -144,10 +141,10 @@ export default function AuthPage() {
         <Typography
           sx={{
             marginTop: "15px",
-            color: message.includes("successful") ? "green" : "red",
+            color: message.success ? "green" : "red",
           }}
         >
-          {message}
+          {message.message}
         </Typography>
       )}
     </Box>

@@ -1,123 +1,54 @@
-import AWS from "aws-sdk";
+import { Upload } from "@aws-sdk/lib-storage";
+import { S3Client } from "@aws-sdk/client-s3";
 
-const s3 = new AWS.S3({
-  maxRetries: 3,
-  httpOptions: {
-    timeout: 300000,
-    connectTimeout: 5000
-  }
-});
+const CLOUDFRONT_DOMAIN = process.env.REACT_APP_CLOUDFRONT_DOMAIN;
 
-AWS.config.update({
-  accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
-  region: process.env.REACT_APP_AWS_REGION,
-});
+const clientConfig = {
+  region: "eu-north-1",
+  credentials: {
+    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+  },
+};
 
-const CHUNK_SIZE = 5 * 1024 * 1024;
-const MAX_FILE_SIZE = 500 * 1024 * 1024;
+export const uploadVideo = async (file) => {
+  console.log("2");
+  const fileKey = `videos/${Date.now()}`;
+  const params = {
+    Bucket: process.env.REACT_APP_S3_BUCKET_NAME,
+    Key: fileKey,
+    Body: file,
+  };
 
-export const uploadVideo = async (file, onProgress) => {
   try {
-    if (file.size > MAX_FILE_SIZE) {
-      throw new Error("File size exceeds 500MB limit");
-    }
+    console.log("3");
+    const parallelUploads3 = new Upload({
+      client: new S3Client(clientConfig),
+      partSize: 1024 * 1024 * 5,
+      params: params,
+      leavePartsOnError: false,
+    });
 
-    if (!file.type.startsWith('video/')) {
-      throw new Error("Invalid file type. Please upload a video file");
-    }
+    console.log("4");
+    parallelUploads3.on("httpUploadProgress", (progress) => {
+      console.log(progress);
+    });
 
-    const fileName = `user-videos/${Date.now()}-${file.name}`;
+    await parallelUploads3.done();
+    console.log("5");
 
-    if (file.size <= CHUNK_SIZE) {
-      const params = {
-        Bucket: process.env.REACT_APP_S3_BUCKET_NAME,
-        Key: fileName,
-        Body: file,
-        ContentType: file.type,
-      };
-
-      const upload = s3.upload(params);
-      
-      upload.on('httpUploadProgress', (progress) => {
-        const percentage = Math.round((progress.loaded / progress.total) * 100);
-        if (onProgress) onProgress(percentage);
-      });
-
-      const result = await upload.promise();
-      const cloudFrontURL = `https://${process.env.REACT_APP_CLOUDFRONT_URL}/${result.Key}`;
-      
-      return {
-        success: true,
-        message: "Video successfully uploaded!",
-        video_path: cloudFrontURL,
-      };
-    }
-
-    const multipartParams = {
-      Bucket: process.env.REACT_APP_S3_BUCKET_NAME,
-      Key: fileName,
-      ContentType: file.type
-    };
-
-    const multipartUpload = await s3.createMultipartUpload(multipartParams).promise();
-    const uploadId = multipartUpload.UploadId;
-
-    const numParts = Math.ceil(file.size / CHUNK_SIZE);
-    const uploadPromises = [];
-    const parts = [];
-
-    for (let i = 0; i < numParts; i++) {
-      const start = i * CHUNK_SIZE;
-      const end = Math.min(start + CHUNK_SIZE, file.size);
-      const chunk = file.slice(start, end);
-
-      const uploadPartParams = {
-        Bucket: process.env.REACT_APP_S3_BUCKET_NAME,
-        Key: fileName,
-        PartNumber: i + 1,
-        UploadId: uploadId,
-        Body: chunk
-      };
-
-      const uploadPromise = s3.uploadPart(uploadPartParams).promise()
-        .then(result => {
-          parts[i] = {
-            ETag: result.ETag,
-            PartNumber: i + 1
-          };
-          
-          const uploadedSize = (i + 1) * CHUNK_SIZE;
-          const percentage = Math.min(Math.round((uploadedSize / file.size) * 100), 100);
-          if (onProgress) onProgress(percentage);
-        });
-
-      uploadPromises.push(uploadPromise);
-    }
-
-    await Promise.all(uploadPromises);
-
-    const completeParams = {
-      Bucket: process.env.REACT_APP_S3_BUCKET_NAME,
-      Key: fileName,
-      MultipartUpload: {
-        Parts: parts.sort((a, b) => a.PartNumber - b.PartNumber)
-      },
-      UploadId: uploadId
-    };
-
-    await s3.completeMultipartUpload(completeParams).promise();
-    
-    const cloudFrontURL = `https://${process.env.REACT_APP_CLOUDFRONT_URL}/${fileName}`;
-    
+    const videoURL = `https://${CLOUDFRONT_DOMAIN}/${fileKey}`;
+    console.log("6");
     return {
       success: true,
-      message: "Video successfully uploaded!",
-      video_path: cloudFrontURL,
+      message: "Successfully uploaded video",
+      videoUrl: videoURL,
     };
-
   } catch (error) {
-    console.error("Upload error:", error);
-    return { success: false, message: error.message };
+    console.log(error.message);
+    return {
+      success: false,
+      message: error.message,
+    };
   }
 };

@@ -23,7 +23,7 @@ export const getRoomsList = async () => {
     if (roomsData) {
       return { success: true, roomsData };
     } else {
-      return { success: false, message: "No rooms data found!" };
+      return { success: false, message: "No data" };
     }
   } catch (error) {
     return { success: false, message: error.message };

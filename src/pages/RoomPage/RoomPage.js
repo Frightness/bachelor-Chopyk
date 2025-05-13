@@ -6,6 +6,7 @@ import { doc, getDoc, collection, addDoc, query, orderBy, onSnapshot, updateDoc,
 import { IconButton, TextField, Typography } from "@mui/material";
 import SettingsIcon from "../../assets/SettingsIcon.svg";
 import LogOutIcon from "../../assets/LogOutIcon.svg";
+import SendIcon from "../../assets/SendIcon.svg";
 import Divider from "@mui/material/Divider";
 import YouTube from "react-youtube";
 import { format } from "date-fns";
@@ -85,7 +86,6 @@ export default function RoomPage() {
     if (!roomID || !userData || !userData.username || !userData.avatarUrl) return;
 
     const roomRef = doc(db, "rooms", roomID);
-    let lastActivity = Date.now();
 
     const activityInterval = setInterval(async () => {
       if (userData) {
@@ -158,12 +158,12 @@ export default function RoomPage() {
   useEffect(() => {
     if (!roomID) return;
 
-    const q = query(
+    const messagesQuery = query(
       collection(db, "rooms", roomID, "messages"),
       orderBy("createdAt")
     );
 
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    const messagesUnsubscribe = onSnapshot(messagesQuery, (querySnapshot) => {
       const messagesArr = [];
       querySnapshot.forEach((doc) => {
         messagesArr.push({ id: doc.id, ...doc.data() });
@@ -171,7 +171,31 @@ export default function RoomPage() {
       setMessages(messagesArr);
     });
 
-    return () => unsubscribe();
+    const roomRef = doc(db, "rooms", roomID);
+    const roomUnsubscribe = onSnapshot(roomRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const roomData = docSnap.data();
+        if (roomData.videoState) {
+          const videoElement = document.querySelector('video');
+          if (videoElement) {
+            const timeDiff = Math.abs(videoElement.currentTime - roomData.videoState.currentTime);
+            if (timeDiff > 1) {
+              videoElement.currentTime = roomData.videoState.currentTime;
+            }
+            if (roomData.videoState.isPlaying && videoElement.paused) {
+              videoElement.play();
+            } else if (!roomData.videoState.isPlaying && !videoElement.paused) {
+              videoElement.pause();
+            }
+          }
+        }
+      }
+    });
+
+    return () => {
+      messagesUnsubscribe();
+      roomUnsubscribe();
+    };
   }, [roomID]);
 
   useEffect(() => {
@@ -236,6 +260,59 @@ export default function RoomPage() {
     }
   };
 
+  const handleVideoPlay = async () => {
+    if (!roomID) return;
+
+    const roomRef = doc(db, "rooms", roomID);
+    const videoElement = document.querySelector('video');
+    try {
+      await updateDoc(roomRef, {
+        videoState: {
+          isPlaying: true,
+          currentTime: videoElement.currentTime,
+          lastUpdate: Date.now()
+        }
+      });
+    } catch (error) {
+      console.error("Error playing video:", error);
+    }
+  };
+
+  const handleVideoPause = async () => {
+    if (!roomID) return;
+
+    const roomRef = doc(db, "rooms", roomID);
+    const videoElement = document.querySelector('video');
+    try {
+      await updateDoc(roomRef, {
+        videoState: {
+          isPlaying: false,
+          currentTime: videoElement.currentTime,
+          lastUpdate: Date.now()
+        }
+      });
+    } catch (error) {
+      console.error("Error pausing video:", error);
+    }
+  };
+
+  const handleVideoSeek = async (event) => {
+    if (!roomID) return;
+
+    const roomRef = doc(db, "rooms", roomID);
+    try {
+      await updateDoc(roomRef, {
+        videoState: {
+          isPlaying: !event.target.paused,
+          currentTime: event.target.currentTime,
+          lastUpdate: Date.now()
+        }
+      });
+    } catch (error) {
+      console.error("Error seeking video:", error);
+    }
+  };
+
   return (
     <div className="roomWrapper">
       {roomInfo.streamSource === "YouTube" ? (
@@ -246,7 +323,14 @@ export default function RoomPage() {
           className="video"
         />
       ) : (
-        <video controls className="video" src={roomInfo.videoUrl}></video>
+        <video 
+          controls
+          className="video" 
+          src={roomInfo.videoUrl} 
+          onPlay={handleVideoPlay}
+          onPause={handleVideoPause}
+          onSeeked={handleVideoSeek}
+        />
       )}
 
       <div className="sideBar">
@@ -344,9 +428,7 @@ export default function RoomPage() {
                 }}
               />
               <IconButton type="submit" className="sendButton">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24px" height="24px">
-                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                </svg>
+                <img src={SendIcon} alt="Send message" style={{ width: "24px", height: "24px" }} />
               </IconButton>
             </form>
           </div>

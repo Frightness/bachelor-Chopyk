@@ -1,6 +1,4 @@
-/* Phones and tablets (from 600px to 767px) */
 @media screen and (min-width: 0px) and (max-width: 1200px) {
-
   .changePasswordBox,
   .changeEmailBox {
     flex-direction: column;

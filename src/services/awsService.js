@@ -1,6 +1,6 @@
 import AWS from "aws-sdk";
-import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { auth, db } from "../firebase";
 
 AWS.config.update({
   accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
@@ -9,12 +9,10 @@ AWS.config.update({
 });
 
 const s3 = new AWS.S3();
-const db = getFirestore();
-const auth = getAuth();
 
 export async function uploadAvatar(file) {
   const user = auth.currentUser;
-  let oldAvatarURL = "";
+  let oldAvatarURL;
 
   if (user) {
     const userRef = doc(db, "users", user.uid);
@@ -22,18 +20,16 @@ export async function uploadAvatar(file) {
 
     if (docSnap.exists()) {
       oldAvatarURL = docSnap.data().avatarUrl;
-      console.log("Current avatar URL:", oldAvatarURL);
 
       if (
-        oldAvatarURL &&
         oldAvatarURL !==
-          "https://cinemly-users-uploaded-videos.s3.eu-north-1.amazonaws.com/avatars/defaultAvatar.svg"
+        "https://cinemly-users-uploaded-videos.s3.eu-north-1.amazonaws.com/avatars/defaultAvatar.svg"
       ) {
         const fileName = oldAvatarURL.split("/").pop();
         await deleteAvatarFromS3(fileName);
       }
     } else {
-      console.log("No user data found.");
+      console.log("Error");
     }
   }
 
@@ -53,12 +49,11 @@ export async function uploadAvatar(file) {
       await updateDoc(userRef, {
         avatarUrl: uploadURL,
       });
-      console.log("Avatar URL updated in Firebase");
     }
 
     return uploadURL;
   } catch (error) {
-    console.error("Error uploading file:", error);
+    console.error(error);
     throw error;
   }
 }
@@ -72,6 +67,6 @@ async function deleteAvatarFromS3(fileName) {
   try {
     await s3.deleteObject(params).promise();
   } catch (error) {
-    console.error("Error deleting old avatar:", error);
+    console.error(error);
   }
 }

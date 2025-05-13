@@ -1,17 +1,11 @@
 import "./Settings.css";
 import "./Responsive.css";
-import { Typography, Button, Box, Snackbar } from "@mui/material";
+import { Typography, Box, Snackbar } from "@mui/material";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
-import { auth } from "../../firebase";
-import {
-  updatePassword,
-  updateEmail,
-  reauthenticateWithCredential,
-  EmailAuthProvider,
-} from "firebase/auth";
-
 import BackArrow from "../../assets/BackArrowIcon.svg";
+import { changeUserPassword, changeUserEmail } from "../../services/settingsService";
+import SettingsForm from "../../components/SettingsForm/SettingsForm";
 
 export default function SettingsPage() {
   const [oldPassword, setOldPassword] = useState("");
@@ -33,31 +27,56 @@ export default function SettingsPage() {
   };
 
   const handleChangePassword = async () => {
-    try {
-      const user = auth.currentUser;
-      const credential = EmailAuthProvider.credential(user.email, oldPassword);
-      await reauthenticateWithCredential(user, credential);
-      await updatePassword(user, newPassword);
-      handleSnackbarOpen("Password was changed successfully!", "success");
-    } catch (error) {
-      handleSnackbarOpen(`Error: something went wrong. Try again :(`, "error");
+    const result = await changeUserPassword(oldPassword, newPassword);
+    if (result.success) {
+      setOldPassword("");
+      setNewPassword("");
     }
+    handleSnackbarOpen(result.message, result.success ? "success" : "error");
   };
 
   const handleChangeEmail = async () => {
-    try {
-      const user = auth.currentUser;
-      const credential = EmailAuthProvider.credential(
-        user.email,
-        currentPassword
-      );
-      await reauthenticateWithCredential(user, credential);
-      await updateEmail(user, newEmail);
-      handleSnackbarOpen("Email was changed successfully!", "success");
-    } catch (error) {
-      handleSnackbarOpen(`Error: something went wrong. Try again :(`, "error");
+    const result = await changeUserEmail(newEmail, currentPassword);
+    if (result.success) {
+      setNewEmail("");
+      setCurrentPassword("");
     }
+    handleSnackbarOpen(result.message, result.success ? "success" : "error");
   };
+
+  const passwordFields = [
+    {
+      name: "oldPassword",
+      placeholder: "Old password",
+      type: "password",
+      value: oldPassword,
+      onChange: (e) => setOldPassword(e.target.value),
+    },
+    {
+      name: "newPassword",
+      placeholder: "New password",
+      type: "password",
+      value: newPassword,
+      onChange: (e) => setNewPassword(e.target.value),
+    },
+  ];
+
+  const emailFields = [
+    {
+      name: "newEmail",
+      placeholder: "New email",
+      type: "email",
+      value: newEmail,
+      onChange: (e) => setNewEmail(e.target.value),
+    },
+    {
+      name: "currentPassword",
+      placeholder: "Current password",
+      type: "password",
+      value: currentPassword,
+      onChange: (e) => setCurrentPassword(e.target.value),
+    },
+  ];
 
   return (
     <Box className="settingsWrapper">
@@ -69,51 +88,17 @@ export default function SettingsPage() {
       </Box>
 
       <Box className="changeBox">
-        <Box className="changePasswordBox">
-          <Typography className="changeText">Change password:</Typography>
-          <input
-            placeholder="Old password"
-            type="password"
-            value={oldPassword}
-            onChange={(e) => setOldPassword(e.target.value)}
-          />
-          <input
-            placeholder="New password"
-            type="password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-          />
-          <Button
-            variant="contained"
-            className="saveButton"
-            onClick={handleChangePassword}
-          >
-            Save
-          </Button>
-        </Box>
+        <SettingsForm
+          title="Change password:"
+          fields={passwordFields}
+          onSubmit={handleChangePassword}
+        />
 
-        <Box className="changeEmailBox">
-          <Typography className="changeText">Change email:</Typography>
-          <input
-            placeholder="New email"
-            type="email"
-            value={newEmail}
-            onChange={(e) => setNewEmail(e.target.value)}
-          />
-          <input
-            placeholder="Current password"
-            type="password"
-            value={currentPassword}
-            onChange={(e) => setCurrentPassword(e.target.value)}
-          />
-          <Button
-            variant="contained"
-            className="saveButton"
-            onClick={handleChangeEmail}
-          >
-            Save
-          </Button>
-        </Box>
+        <SettingsForm
+          title="Change email:"
+          fields={emailFields}
+          onSubmit={handleChangeEmail}
+        />
       </Box>
 
       <Snackbar

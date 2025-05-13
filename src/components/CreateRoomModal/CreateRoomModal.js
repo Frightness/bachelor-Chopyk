@@ -58,8 +58,9 @@ export default function CreateRoomModal({ open, onClose, onCreate }) {
     let videoUrl = "";
     if (streamSource === "My own video" && file) {
       const uploadResponse = await uploadVideo(file);
+      console.log("1");
       if (!uploadResponse.success) return;
-      videoUrl = uploadResponse.video_path;
+      videoUrl = uploadResponse.videoUrl;
     } else {
       videoUrl = youtubeVideoURL;
     }

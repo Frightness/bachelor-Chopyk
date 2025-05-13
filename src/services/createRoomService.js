@@ -11,8 +11,13 @@ const firestore = getFirestore();
 export const createRoom = async (roomData) => {
   try {
     const docRef = doc(collection(firestore, "rooms"));
+
+    const cleanRoomData = Object.fromEntries(
+      Object.entries(roomData).filter(([_, value]) => value !== undefined)
+    );
+
     await setDoc(docRef, {
-      ...roomData,
+      ...cleanRoomData,
       room_id: docRef.id,
       createdAt: serverTimestamp(),
     });
@@ -21,6 +26,6 @@ export const createRoom = async (roomData) => {
       return { success: true, docRef };
     }
   } catch (error) {
-    return { success: false, message: "Something went wrong, try again!" };
+    return { success: false, message: error.message };
   }
 };
