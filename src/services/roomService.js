@@ -1,6 +1,5 @@
 import { db } from "../firebase";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
-import { getActiveParticipants } from "./participantService";
 
 export const subscribeToPublicRooms = (callback) => {
   const roomsRef = collection(db, "rooms");
@@ -11,8 +10,7 @@ export const subscribeToPublicRooms = (callback) => {
 
     querySnapshot.forEach((doc) => {
       const roomData = doc.data();
-      const currentParticipants = getActiveParticipants(roomData.participants);
-      const currentParticipantsCount = currentParticipants.length;
+      const currentParticipantsCount = roomData.participants?.length || 0;
       const maxParticipants = parseInt(roomData.numParticipants) || 0;
 
       if (currentParticipantsCount < maxParticipants) {
