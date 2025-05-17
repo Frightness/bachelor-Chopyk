@@ -101,7 +101,7 @@ export default function RoomPage() {
             [`participants.${userData.uid}`]: participantData
           });
         } catch (error) {
-          console.error("Error updating activity:", error);
+          console.error(error);
         }
       }
     }, 30000);
@@ -123,7 +123,7 @@ export default function RoomPage() {
           });
         }
       } catch (error) {
-        console.error("Error cleaning inactive users:", error);
+        console.error(error);
       }
     }, 60000);
 
@@ -140,7 +140,7 @@ export default function RoomPage() {
             participants: arrayRemove(participantData)
           });
         } catch (error) {
-          console.error("Error removing participant:", error);
+          console.error(error);
         }
       }
     };
@@ -234,7 +234,7 @@ export default function RoomPage() {
       });
       setNewMessage("");
     } catch (error) {
-      console.error("Error sending message:", error);
+      console.error(error);
     }
   };
 
@@ -255,7 +255,7 @@ export default function RoomPage() {
 
         navigate('/rooms');
       } catch (error) {
-        console.error("Error leaving room:", error);
+        console.error(error);
       }
     }
   };
@@ -274,7 +274,7 @@ export default function RoomPage() {
         }
       });
     } catch (error) {
-      console.error("Error playing video:", error);
+      console.error(error);
     }
   };
 
@@ -292,7 +292,7 @@ export default function RoomPage() {
         }
       });
     } catch (error) {
-      console.error("Error pausing video:", error);
+      console.error(error);
     }
   };
 
@@ -309,7 +309,7 @@ export default function RoomPage() {
         }
       });
     } catch (error) {
-      console.error("Error seeking video:", error);
+      console.error(error);
     }
   };
 
