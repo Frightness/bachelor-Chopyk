@@ -1,7 +1,7 @@
 import { Upload } from "@aws-sdk/lib-storage";
 import { S3Client } from "@aws-sdk/client-s3";
 
-const CLOUDFRONT_DOMAIN = process.env.REACT_APP_CLOUDFRONT_DOMAIN;
+const CLOUDFRONT_DOMAIN = process.env.REACT_APP_CLOUDFRONT_DOMAIN || "d2k615hvvnqv2w.cloudfront.net";
 
 const clientConfig = {
   region: "eu-north-1",

@@ -18,7 +18,6 @@ import { uploadVideo } from "../../services/uploadVideoService";
 export default function CreateRoomModal({ open, onClose, onCreate }) {
   const [roomType, setRoomType] = useState("Public");
   const [streamSource, setStreamSource] = useState("Choose stream source");
-  const [roomPassword, setRoomPassword] = useState("");
   const [currentParticipants, setCurrentParticipants] = useState(0);
   const [file, setFile] = useState(null);
   const [roomName, setRoomName] = useState("");
@@ -71,7 +70,6 @@ export default function CreateRoomModal({ open, onClose, onCreate }) {
       roomType,
       streamSource,
       videoUrl,
-      roomPassword,
       currentParticipants,
     });
     setLoading(false);
@@ -220,29 +218,6 @@ export default function CreateRoomModal({ open, onClose, onCreate }) {
             sx={{ color: "white" }}
           />
         </RadioGroup>
-        {roomType === "Private" && (
-          <TextField
-            fullWidth
-            placeholder="Room password"
-            margin="normal"
-            type="text"
-            className="modalInputField"
-            onChange={(e) => setRoomPassword(e.target.value)}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  border: "none",
-                },
-                "&.Mui-focused fieldset": {
-                  border: "none",
-                },
-              },
-              "& .MuiInputBase-root": {
-                outline: "none",
-              },
-            }}
-          />
-        )}
         {loading ? (
           <CircularProgress color="secondary" />
         ) : (
